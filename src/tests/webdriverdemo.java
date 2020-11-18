@@ -29,6 +29,8 @@ public class webdriverdemo {
 	      // Click on Percent Calculators
 	      driver.findElement(By.xpath("//*[@id=\"content\"]/table[2]/tbody/tr/td/div[3]/a")).click();
 	      
+	      
+	      // Test 1: Integer positive values
 	      // Enter value 10 in the first number of the percent Calculator
 	      driver.findElement(By.id("cpar1")).sendKeys("10");
 	      
@@ -42,12 +44,48 @@ public class webdriverdemo {
 	      // Get the Result Text based on its xpath
 	      String result =
 	         driver.findElement(By.xpath("//*[@id=\"content\"]/p[2]/font/b")).getText();
-
 	      
-	      // Print a Log In message to the screen
+	      assertEquals(result, "5");
 	      
-	      assertEquals(result, Integer.toString(5));
-	      // System.out.println(" The Result is " + result);
+	      driver.findElement(By.id("cpar1")).clear();
+	      driver.findElement(By.id("cpar2")).clear();
+	      
+	      
+	      // Test 2: Integer negative and positive values
+	      driver.findElement(By.id("cpar1")).sendKeys("-20");
+	      driver.findElement(By.id("cpar2")).sendKeys("100");
+	      
+	      driver.findElement(By.xpath("//*[@id=\"content\"]/table[1]/tbody/tr[2]/td/input[2]")).click();
+	      
+	      result =
+	 	         driver.findElement(By.xpath("//*[@id=\"content\"]/p[2]/font/b")).getText();
+	      
+	      assertEquals(result, "-20");
+	      
+	      driver.findElement(By.id("cpar1")).clear();
+	      driver.findElement(By.id("cpar2")).clear();
+	      
+	      // Test 3: Real values
+	      driver.findElement(By.id("cpar1")).sendKeys("5.5");
+	      driver.findElement(By.id("cpar2")).sendKeys("-100");
+	      
+	      driver.findElement(By.xpath("//*[@id=\"content\"]/table[1]/tbody/tr[2]/td/input[2]")).click();
+	      
+	      result =
+	 	         driver.findElement(By.xpath("//*[@id=\"content\"]/p[2]/font/b")).getText();
+	      
+	      assertEquals(result, "-5.5");
+	      
+	      // Test 4: Invalid input
+	      driver.findElement(By.id("cpar1")).sendKeys("hellow");
+	      driver.findElement(By.id("cpar2")).sendKeys("world");
+	      
+	      driver.findElement(By.xpath("//*[@id=\"content\"]/table[1]/tbody/tr[2]/td/input[2]")).click();
+	      
+	      result =
+	 	         driver.findElement(By.xpath("//*[@id=\"content\"]/p[2]/font")).getText();
+	      
+	      assertEquals(result, "Please provide two numeric values in any fields below.");
 	      
 	      //Close the Browser.
 	      driver.close();
